@@ -1,74 +1,41 @@
-// =======================
-// DOM ELEMENT REFERENCES
-// =======================
-// Get references to HTML elements we'll need to manipulate
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d'); // 2D rendering context for drawing
 const scoreElement = document.getElementById('score');
 const highScoreElement = document.getElementById('highScore');
 const gameOverElement = document.getElementById('gameOver');
 
-// =======================
-// GAME CONFIGURATION
-// =======================
-// Constants that define the game's basic parameters
 const CELL_SIZE = 20;           // Size of each grid cell in pixels
 const CELL_COUNT = 25;          // Number of cells in each direction (25x25 grid)
 const OFFSET = 50;              // Offset from canvas edge to game area
 const UPDATE_INTERVAL = 200;    // Base update interval in milliseconds
 
-// =======================
-// COLOR CONSTANTS
-// =======================
-// Define colors used throughout the game
+
 const GREEN = '#add462';        // Light green for game background
 const DARK_GREEN = '#2b331a';   // Dark green for snake body and borders
 const RED = '#e74c3c';          // Red color for food
 
-// =======================
-// GAME STATE VARIABLES
-// =======================
-// Variables that track the current state of the game
-
-// Snake represented as array of coordinate objects
-// Starts with 2 segments: head at (6,9) and tail at (5,9)
 let snake = [
     { x: 6, y: 9 },
     { x: 5, y: 9 }
 ];
 
-// Current direction of snake movement
-// x: 1 means moving right, y: 1 means moving down
+
 let direction = { x: 1, y: 0 };
 
-// Food position (will be set randomly)
 let food = { x: 0, y: 0 };
 
-// Game running state
 let running = true;
 
-// Current score
 let score = 0;
 
-// Highest score achieved in current session
 let highScore = 0;
 
-// Flag to prevent multiple moves per frame
 let allowMove = false;
 
-// Timing variables for smooth animation
 let lastUpdateTime = 0;
 let gameSpeed = 200; // Current game speed in milliseconds
 
-// =======================
-// AUDIO FUNCTIONS
-// =======================
-// Functions to generate retro-style sound effects using Web Audio API
-
-/**
- * Plays a sound when snake eats food
- * Creates a rising tone effect
- */
 function playEatSound() {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
@@ -91,10 +58,7 @@ function playEatSound() {
     oscillator.stop(audioContext.currentTime + 0.1);
 }
 
-/**
- * Plays a sound when game ends
- * Creates a falling tone effect
- */
+
 function playGameOverSound() {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
@@ -117,26 +81,11 @@ function playGameOverSound() {
     oscillator.stop(audioContext.currentTime + 0.3);
 }
 
-// =======================
-// UTILITY FUNCTIONS
-// =======================
-// Helper functions for game logic
-
-/**
- * Checks if a given element exists in an array
- * Used to check if food spawns on snake body
- * @param {Object} element - The element to search for
- * @param {Array} array - The array to search in
- * @returns {boolean} - True if element exists in array
- */
 function elementInArray(element, array) {
     return array.some(item => item.x === element.x && item.y === element.y);
 }
 
-/**
- * Generates a random cell position within the game grid
- * @returns {Object} - Object with x and y coordinates
- */
+
 function generateRandomCell() {
     return {
         x: Math.floor(Math.random() * CELL_COUNT),
@@ -144,10 +93,6 @@ function generateRandomCell() {
     };
 }
 
-/**
- * Generates a random food position that doesn't overlap with snake
- * @returns {Object} - Object with x and y coordinates for food
- */
 function generateRandomFood() {
     let newFood = generateRandomCell();
     let attempts = 0;
@@ -162,33 +107,11 @@ function generateRandomFood() {
     return newFood;
 }
 
-// =======================
-// DRAWING FUNCTIONS
-// =======================
-// Functions responsible for rendering game elements
-
-/**
- * Draws a simple rectangle on the canvas
- * @param {number} x - X coordinate
- * @param {number} y - Y coordinate
- * @param {number} width - Width of rectangle
- * @param {number} height - Height of rectangle
- * @param {string} color - Fill color
- */
 function drawRectangle(x, y, width, height, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
 }
 
-/**
- * Draws a rectangle with rounded corners
- * @param {number} x - X coordinate
- * @param {number} y - Y coordinate
- * @param {number} width - Width of rectangle
- * @param {number} height - Height of rectangle
- * @param {number} radius - Corner radius
- * @param {string} color - Fill color
- */
 function drawRoundedRectangle(x, y, width, height, radius, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
@@ -196,11 +119,6 @@ function drawRoundedRectangle(x, y, width, height, radius, color) {
     ctx.fill();
 }
 
-/**
- * Draws the entire snake
- * Each segment is drawn as a rounded rectangle
- * The head gets eyes drawn on it
- */
 function drawSnake() {
     snake.forEach((segment, index) => {
         // Calculate pixel position from grid coordinates
@@ -217,17 +135,10 @@ function drawSnake() {
     });
 }
 
-/**
- * Draws eyes on the snake's head
- * Eye position depends on current movement direction
- * @param {number} headX - X pixel coordinate of head
- * @param {number} headY - Y pixel coordinate of head
- */
 function drawSnakeEyes(headX, headY) {
     const eyeSize = 3;
     const eyeOffset = 5;
-    
-    // Determine eye positions based on movement direction
+
     let leftEyeX, leftEyeY, rightEyeX, rightEyeY;
     
     if (direction.x === 1) { // Moving right
@@ -283,15 +194,6 @@ function drawFood() {
     drawRectangle(x, y, CELL_SIZE, CELL_SIZE, RED);
 }
 
-// =======================
-// GAME LOGIC FUNCTIONS
-// =======================
-// Functions that handle game mechanics
-
-/**
- * Updates the snake's position and handles collisions
- * This is the main game logic function
- */
 function updateSnake() {
     // Create new head position based on current direction
     const head = { ...snake[0] };
@@ -339,10 +241,6 @@ function updateSnake() {
     }
 }
 
-/**
- * Handles game over state
- * Updates high score if necessary
- */
 function gameOver() {
     running = false;
     
@@ -359,9 +257,7 @@ function gameOver() {
     playGameOverSound();
 }
 
-/**
- * Resets the game to initial state
- */
+
 function resetGame() {
     // Reset snake to initial position
     snake = [
@@ -388,14 +284,7 @@ function resetGame() {
     allowMove = false;
 }
 
-// =======================
-// MAIN GAME LOOP
-// =======================
-/**
- * Main game loop that runs continuously
- * Handles timing, updates, and rendering
- * @param {number} currentTime - Current timestamp from requestAnimationFrame
- */
+
 function gameLoop(currentTime) {
     // Check if enough time has passed for next update
     if (currentTime - lastUpdateTime >= gameSpeed) {
@@ -427,10 +316,6 @@ function gameLoop(currentTime) {
     requestAnimationFrame(gameLoop);
 }
 
-// =======================
-// EVENT HANDLING
-// =======================
-// Handle keyboard input for snake movement and game restart
 document.addEventListener('keydown', (e) => {
     // Prevent multiple moves per frame
     if (!allowMove && running) return;
@@ -470,9 +355,5 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// =======================
-// GAME INITIALIZATION
-// =======================
-// Initialize game and start the game loop
 food = generateRandomFood();
 requestAnimationFrame(gameLoop);
