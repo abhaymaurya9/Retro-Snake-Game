@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags for proper document configuration -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro Snake Game</title>
-    
-    <!-- Link to external CSS file -->
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Main game container that centers all game elements -->
     <div id="gameContainer">
-        <!-- Game title displayed at the top -->
         <div id="gameTitle">Retro Snake</div>
         
-        <!-- Canvas element where the game is rendered -->
-        <!-- Width and height are set to 600x600 pixels -->
         <canvas id="gameCanvas" width="600" height="600"></canvas>
         
-        <!-- Current score display -->
         <div id="score">0</div>
         
-        <!-- High score display (shows best score achieved in current session) -->
         <div id="highScore">High Score: 0</div>
         
-        <!-- Game over message (hidden by default, shown when game ends) -->
         <div id="gameOver">Game Over! Press SPACE to restart</div>
         
-        <!-- Instructions for the player -->
         <div id="instructions">
             Use Arrow Keys to move • SPACE to restart when game over
         </div>
     </div>
 
-    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
