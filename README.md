@@ -37,9 +37,11 @@ Movement: Use arrow keys to control the snake
 
 * Game Over: The game ends when the snake hits the wall or itself
 
+* Restart: Press SPACE when the game is over to play again
+
+  
 # Screenshot of Game 🎮 
 
 <img width="776" height="798" alt="Screenshot 2025-07-13 at 1 43 15 PM" src="https://github.com/user-attachments/assets/4b66e596-adf2-4d28-98dc-2f75075a779d" />
 
 
-* Restart: Press SPACE when the game is over to play again
