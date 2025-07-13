@@ -1,0 +1,124 @@
+/* Reset default margins and padding for the body */
+body {
+    margin: 0;
+    padding: 10px;
+    
+    /* Center the game container both horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Full viewport height to center content vertically */
+    height: 100vh;
+    
+    /* Dark background color for retro feel */
+    background-color: #2d3436;
+    
+    /* Retro monospace font */
+    font-family: 'Courier New', monospace;
+    
+    /* Stack elements vertically */
+    flex-direction: column;
+    
+    /* Prevent scrollbars from appearing */
+    overflow: hidden;
+}
+
+/* Container that holds all game elements */
+#gameContainer {
+    /* Center align all text elements */
+    text-align: center;
+}
+
+/* The game canvas where snake and food are drawn */
+#gameCanvas {
+    /* Dark green border around the game area */
+    border: 5px solid #2b331a;
+    
+    /* Light green background (same as snake game area) */
+    background-color: #add462;
+    
+    /* Add shadow for depth effect */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Main game title styling */
+#gameTitle {
+    /* Bright blue color */
+    color: #74b9ff;
+    
+    /* Large font size for prominence */
+    font-size: 30px;
+    
+    /* Small margin below title */
+    margin-bottom: 5px;
+    
+    /* Bold font weight */
+    font-weight: bold;
+    
+    /* Text shadow for retro 3D effect */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Current score display */
+#score {
+    /* Green color to match game theme */
+    color: #00b894;
+    
+    /* Large font size for easy reading */
+    font-size: 30px;
+    
+    /* Small margin above score */
+    margin-top: 5px;
+    
+    /* Bold font weight */
+    font-weight: bold;
+    
+    /* Text shadow for depth */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* High score display styling */
+#highScore {
+    /* Golden/yellow color to distinguish from current score */
+    color: #fdcb6e;
+    
+    /* Smaller font size than current score */
+    font-size: 18px;
+    
+    /* Small margin above high score */
+    margin-top: 5px;
+    
+    /* Bold font weight */
+    font-weight: bold;
+    
+    /* Text shadow for consistency */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Game over message styling */
+#gameOver {
+    /* Orange/red color to indicate game end */
+    color: #e17055;
+    
+    /* Medium font size */
+    font-size: 20px;
+    
+    /* Small margin above message */
+    margin-top: 5px;
+    
+    /* Hidden by default, shown via JavaScript when game ends */
+    display: none;
+}
+
+/* Instructions text styling */
+#instructions {
+    /* Same blue as title for consistency */
+    color: #74b9ff;
+    
+    /* Small font size for instructions */
+    font-size: 14px;
+    
+    /* Margin above instructions */
+    margin-top: 10px;
+}
